@@ -2,54 +2,54 @@ from django.shortcuts import render,redirect
 from .forms import StudForm,SForm
 from .models import  stud
 from django.contrib.auth import authenticate,login
+
 from django.contrib.auth import logout
-from django.contrib.auth.forms  import UserCreationForm
+from django.contrib.auth.forms  import UserCreationForm,AuthenticationForm
 
 
-# def home(request):
-#     return render(request,"home.html")
+def home(request):
+    return render(request,"home.html")
 
-# def signup(request):
-#     if request.user.is_authenticated:
-#         return redirect('/')
-#     if request.method == 'POST':
-#         form = UserCreationForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             username = form.cleaned_data.get('username')
-#             password = form.cleaned_data.get('password1')
-#             user = authenticate(username=username, password=password)
-#             login(request, user)
-#             return redirect('/')
-#         else:
-#             return render(request, 'signup.html', {'form': form})
-#     else:
-#         form = UserCreationForm()
-#         return render(request, 'signup.html', {'form': form})
-    
-# def signin(request):
-#     if request.user.is_authenticated:
-#         return render(request, 'home.html')
-#     if request.method == 'POST':
-#         username = request.POST['username']
-#         password = request.POST['password']
-#         user = authenticate(request, username=username, password=password)
-#         if user is not None:
-#             login(request, user)
-#             return redirect('/profile') #profile
-#         else:
-#             msg = 'Error Login'
-#             form = AuthenticationForm(request.POST)
-#             return render(request, 'login.html', {'form': form, 'msg': msg})
-#     else:
-#         form = AuthenticationForm()
-#         return render(request, 'login.html', {'form': form})
-    
-    
-  
-# def signout(request):
-#     logout(request)
-#     return redirect('/')
+def signup(request):
+    if request.user.is_authenticated:
+        return redirect('/base')
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            return redirect('/base')
+        else:
+            return render(request, 'signup.html', {'form': form})
+    else:
+        form = UserCreationForm()
+        return render(request, 'signup.html', {'form': form})
+def signin(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request, request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                # Redirect the user to the desired page upon successful login
+                return redirect('/base')  # Replace '/base' with the URL you want to redirect to
+            else:
+                msg = 'Invalid username or password'
+        else:
+            msg = 'Invalid input'
+    else:
+        form = AuthenticationForm()
+        msg = ''
+    return render(request, 'login.html', {'form': form, 'msg': msg})
+
+def signout(request):
+    logout(request)
+    return redirect('/')
 
 def base(request):
     return render(request,"base.html")

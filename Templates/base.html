@@ -1,6 +1,11 @@
 {% include "navbar.html" %} {% load static %}
 <div class="conatiner row-2">
   <div>
+    {% if user.is_authenticated %}
+   Hi {{ user.username }}!
+   <a href="/signout" class="btn btn-danger">Logout</a>
+ {% else %}
+ {% endif %}
     <img src="{% static 'reg.png' %}" /><img
       src="{% static 'Img/stdreg.png' %}"
     />

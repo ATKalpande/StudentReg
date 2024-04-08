@@ -21,11 +21,11 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    #  path('signin/',views.signin, name='signin'),
-    # path('signout/',views.signout, name='signout'),
-    # path('signup/',views.signup, name='signup'),
-#    path('',views.home,name ='home'),
-    path('',views.base),
+    path('signin/',views.signin, name='signin'),
+    path('signout/',views.signout, name='signout'),
+    path('signup/',views.signup, name='signup'),
+    path('',views.home,name ='home'),
+    path('base/',views.base),
     path('registerStd/', views.registerStd),
     path('exitstd/', views.existsStd),
     path('search/', views.search),
