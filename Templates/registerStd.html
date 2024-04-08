@@ -1,0 +1,38 @@
+    {% include "navbar.html" %}
+
+    <h1 classname="div">{{title}}</h1>
+
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="text-center">{{ title }}</h2>
+                    </div>
+                    <div class="card-body">
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                {{ form.s_name.label_tag }}
+                                {{ form.s_name }}
+                            </div>
+                            <div class="form-group">
+                                {{ form.s_class.label_tag }}
+                                {{ form.s_class }}
+                            </div>
+                            <div class="form-group">
+                                {{ form.s_add.label_tag }}
+                                {{ form.s_add }}
+                            </div>
+                            <div class="form-group">
+                                {{ form.s_email.label_tag }}
+                                {{ form.s_email }}
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">Register</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    

@@ -1,0 +1,41 @@
+{% include "navbar.html" %}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Registered Students</h2>
+    {% if queryset %}
+        <div class="table-responsive">
+            {{text}}
+            <table class="table table-bordered table-striped table-hover" border="1">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Class</th>
+                        <th>Address</th>
+                        <th>Email</th>
+                        <th>Operation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for k in queryset %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ k.s_name }}</td>
+                            <td>{{ k.s_class }}</td>
+                            <td>{{ k.s_add }}</td>
+                            <td>{{ k.s_email }}</td>
+                            <td><form action="{% url 'dropout' %}" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="s_name" value="{{ k.s_name }}">
+                                <button class="btn btn-danger" type="submit">Delete</button>
+                            </form></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p>No students found.</p>
+    {% endif %}
+</div>
+{% endblock %}
